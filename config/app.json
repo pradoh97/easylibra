@@ -1,0 +1,15 @@
+{
+  "db":{
+    "name": "library",
+    "schema": "library",
+    "user": "postgres",
+    "password": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "vendor": "pgsql"
+  },
+  "images":{
+    "placeholder": "img/book cover placeholder.jpg",
+    "path": "img/"
+  }
+}
