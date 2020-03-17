@@ -9,7 +9,15 @@
     "vendor": "pgsql"
   },
   "images":{
-    "placeholder": "img/book cover placeholder.jpg",
+    "placeholder": "book cover placeholder.jpg",
     "path": "img/"
+  },
+  "bookFields":{
+    "0": "isbn",
+    "1": "title",
+    "2": "author",
+    "3": "stock",
+    "4": "price",
+    "5": "img_uri"
   }
 }

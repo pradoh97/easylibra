@@ -2,46 +2,61 @@
 
 require_once 'conection.php';
 require_once 'config.php';
+require_once 'php/Book.php';
+
+$placeHolderImg = getPlaceholderURI();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-  addBook();
+
+  $bookData = $_POST;
+
+  $target_path = getCoversPath() . $_FILES['coverImg']['name'];
+  $img_uri = "'". $target_path."'";
+  $bookData = $_POST;
+  $bookData['img_uri'] = $img_uri;
+
+  if(validForm($bookData)){
+
+    $book = new Book(
+      $bookData['isbn'],
+      $bookData['title'],
+      $bookData['author'],
+      $bookData['stock'],
+      $bookData['price'],
+      $img_uri);
+
+      $db = getDBConection();
+
+      move_uploaded_file($_FILES['coverImg']['tmp_name'], $target_path);
+      $book -> addBook($db);
+      var_dump($book);
+      var_dump($db -> errorInfo()[2]);
+  }
+}
+
+function validForm($bookData){
+  if(!formCompleted()){
+    return false;
+  }
+
+  $formErrors = Book::validateBook($bookData);
+
+  if(count($formErrors)){
+    return false;
+  }
+
+  return true;
 }
 
 function formCompleted():bool{
   foreach ($_POST as $key => $value) {
-    if($key === 'button'){
+    if($key === 'button' || $key === 'stock' || $key === 'price' || $key === 'img_uri'){
       continue;
     }
-    if(!isset($value) || empty($value)){
+    if(!isset($key) || empty($value)){
       return false;
     }
   }
   return true;
-}
-
-function addBook(){
-  if(!formCompleted()){
-    echo "Complete el formulario";
-  }
-
-  $book = $_POST;
-  $target_path = getCoversPath() . $_FILES['coverImg']['name'];
-
-  //Cambiar esto.
-  //Agrega las comillas simples a los campos tipo string.
-  $book['coverImg'] = "'". getCoversPath() . $_FILES['coverImg']['name'] . "'";
-  $book['title'] = "'" . $book['title'] . "'";
-  $book['author'] = "'" . $book['author'] . "'";
-
-  $db = getDBConection();
-
-  $query = <<<SQL
-  INSERT INTO book (isbn, title, author, stock, price, img_uri)
-  VALUES ({$book['isbn']}, {$book['title']}, {$book['author']}, {$book['stock']}, {$book['price']}, {$book['coverImg']})
-  SQL;
-
-  //hay que validar, si no se subió, que no mueva la imagen. Con errorinfo.
-  $db -> exec($query);
-  move_uploaded_file($_FILES['coverImg']['tmp_name'], $target_path);
 }
 ?>

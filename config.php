@@ -14,4 +14,8 @@ function getConfig(){
 function getCoversPath(){
    return getConfig()['images']['path'];
 }
+
+function getPlaceholderURI(){
+  return '"' . getConfig()['images']['path'] . getConfig()['images']['placeholder']. '"';
+}
 ?>

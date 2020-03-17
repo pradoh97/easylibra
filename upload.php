@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="estilos.css">
   </head>
   <body>
+
     <?php include_once 'uploadBook.php' ?>
+
     <h1>Book upload</h1>
     <span><a href="index.php">Catalog.</a></span>
     <div class="book-card upload">
-      <img src="img/book cover placeholder.jpg" alt="a book cover placeholder">
+      <img src=<?php echo $placeHolderImg ?> alt="a book cover placeholder">
       <form name="book" action="upload.php" method="POST" enctype="multipart/form-data">
         <div class="body">
           <div class="controls-set">
