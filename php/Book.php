@@ -1,13 +1,17 @@
 <?php
-  include_once 'config.php';
-
-
   class Book{
 
-    function __construct($isbn, $title, $author, $stock, $price, $img_uri)
+    private $id;
+    private $isbn;
+    private $title;
+    private $author;
+    private $stock;
+    private $price;
+    private $img_uri;
+
+    public function __construct($isbn, $title, $author, $stock, $price, $img_uri)
     {
       $this -> isbn = $isbn;
-
       $this -> title = "'" . $title . "'";
       $this -> author = "'" . $author . "'";
 
@@ -24,22 +28,22 @@
       }
 
       if(!isset($img_uri)){
-        $this -> img_uri = getPlaceholderURI();
+        $this -> img_uri = Config::getPlaceholderURI();
       } else {
         $this -> img_uri = $img_uri;
       }
     }
 
-    function addBook($db){
+    public function addBook($connection){
       $query = <<<SQL
         INSERT INTO book (isbn, title, author, stock, price, img_uri)
         VALUES ({$this -> isbn}, {$this -> title}, {$this -> author}, {$this -> stock}, {$this -> price}, {$this -> img_uri})
         SQL;
 
-      $db -> exec($query);
+      $connection -> exec($query);
     }
 
-    static function sanitizeBookFields($bookData){
+    static function sanitizeBookFields(&$bookData){
 
       /*reemplazar todos las claves del array con nombre por un foreach usando los datos
        de bookField en app.json (y ver como se puede mejorar este enfoque).
