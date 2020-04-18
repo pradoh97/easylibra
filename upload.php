@@ -48,6 +48,7 @@
         </div>
       </form>
     </div>
-    <script type="text/javascript" src="js/upload.js"></script>
+    <script type="text/javascript" src="js/editBook.js"></script>
+    <script type="text/javascript" src="js/uploadBook.js"></script>
   </body>
 </html>

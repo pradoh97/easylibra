@@ -1,21 +1,25 @@
 <?php
-require_once './conection.php';
-require_once './config.php';
+require_once './php/DataBase.php';
+require_once './php/Config.php';
 
-$db = getDBConection();
+$db = new DataBase();
+$dbConnection = $db -> getConnection();
+
 $query = "SELECT * FROM book";
-$books = getBooks($query, $db);
+$books = getBooks($query, $dbConnection);
+
+unset($db);
+unset($dbConnection);
 
 foreach($books as $book){
   showBookCard($book);
 }
 
-die("");
 
-function getBooks($query, $db){
+function getBooks($query, $connection){
   $books;
 
-  $statement = $db -> prepare($query);
+  $statement = $connection -> prepare($query);
   $statement -> execute();
 
   $books = $statement -> fetchAll(PDO::FETCH_ASSOC);

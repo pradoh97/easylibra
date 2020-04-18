@@ -12,5 +12,6 @@
     <div class="grid">
       <?php include_once 'catalog.php'?>
     </div>
+    <script type="text/javascript" src="js/editBook.js"></script>
   </body>
 </html>

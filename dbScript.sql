@@ -8,12 +8,12 @@ CREATE TABLE book(
   author VARCHAR(255) NOT NULL,
   stock SMALLINT NOT NULL DEFAULT 0,
   price FLOAT,
-  img_uri VARCHAR(255) DEFAULT NULL
+  imgUri VARCHAR(255) DEFAULT NULL
 );
 
 CREATE INDEX book_title ON book(title);
 
-INSERT INTO book (isbn, title, author, stock, price, img_uri)
+INSERT INTO book (isbn, title, author, stock, price, imgUri)
 	VALUES ('9780882339726', '1984', 'George Orwell', 12, 7.50, 'img/1984.jpg'),
 	('9789724621081', '1Q84', 'Haruki Murakami', 9, 9.75, 'img/1Q84.jpg'),
 	('9780736692427', 'Animal Farm', 'George Orwell', 8, 3.50, 'img/Animal Farm.jpg'),
