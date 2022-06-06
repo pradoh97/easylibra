@@ -15,13 +15,13 @@
       $this -> title = "'" . $title . "'";
       $this -> author = "'" . $author . "'";
 
-      if(!isset($this -> stock) || $this -> stock === ""){
+      if(!isset($stock) || $stock === ""){
         $this -> stock = 0;
       } else {
         $this -> stock = $stock;
       }
 
-      if(!isset($this -> price) || $this -> price === ""){
+      if(!isset($price) || $price === ""){
         $this -> price = 0;
       } else {
         $this -> price = $price;
