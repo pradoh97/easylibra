@@ -24,16 +24,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       $bookData['stock'],
       $bookData['price'],
       $imgUri);
-
+    
       $db = new DataBase();
       $dbConnection = $db -> getConnection();
 
       move_uploaded_file($_FILES['coverImg']['tmp_name'], $target_path);
       $book -> addBook($dbConnection);
-
-      echo("uploadBook.php linea 33");
-      var_dump($book);
-      var_dump($dbConnection -> errorInfo()[2]);
 
       unset($db);
       unset($dbConnection);
